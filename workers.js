@@ -38,7 +38,7 @@ const Worker = (() =>
 	// move the worker to a random target
 	const move_to_next = async function ()
 	{
-		this.current_target = this.targets[random_int(0, this.targets.length)];
+		this.current_target = this.targets[random_int(0, this.targets.length-1)];
 		transform_to(this.element, this.current_target);
 	};
 
