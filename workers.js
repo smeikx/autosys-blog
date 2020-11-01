@@ -71,16 +71,27 @@ const Worker = (() =>
 
 })();
 
-//await sleep(random_int(5000, 9000));
 
-const worker = (() =>
+const worker_count = 20;
+const workers = new Array(worker_count);
 {
-	const targets = document.getElementsByClassName('x');
-	return new Worker(targets, random_int(0, targets.length));
-})();
+	const targets = document.getElementsByClassName('word');
+	for (let worker, i = worker_count-1; i >= 0; --i)
+	{
+		worker = new Worker(targets, random_int(0, targets.length-1));
+		worker.start();
+		workers[i] = worker;
+	}
+}
 
-worker.start();
-
-(async () =>
+const halt = () =>
 {
-})();
+	for (const worker of workers)
+		worker.is_active = false;
+};
+
+const start = () =>
+{
+	for (const worker of workers)
+		worker.start();
+};
