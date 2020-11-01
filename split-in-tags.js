@@ -62,38 +62,3 @@ for (const e of document.getElementsByTagName('p'))
 	const inner_html = e.innerHTML;
 	e.innerHTML = wrap_words_in_tag(inner_html, 'span', get_tag_indexes(inner_html));
 }
-
-
-/* This returns an array of shuffled indexes from a given array.
-*/
-const randomise_indexes = (array) =>
-{
-	const length = array.length, indexes = new Array(length);
-	for (let i = 0; i < length; indexes[i] = i++);
-	
-	for (let i = 0, j, tmp; i < length; ++i)
-	{
-		j = Math.floor(Math.random() * (i + 1));
-		tmp = indexes[i];
-		indexes[i] = indexes[j];
-		indexes[j] = tmp;
-	}
-	return indexes;
-}
-
-(async () =>
-{
-	const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
-	const random_int = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-	
-	const add_class_y = async (element) =>
-	{
-		await sleep(random_int(20, 5000));
-		element.classList.add('y');
-	}
-
-	const xs = document.getElementsByClassName('x');
-	for (const i of randomise_indexes(xs))
-		add_class_y(xs[i]);
-})();
-
