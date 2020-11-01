@@ -29,7 +29,7 @@ const wrap_words_in_tag = (string, tag_name, skip_indexes) =>
 {
 	const
 		pattern = /\S+/g,
-		replacement = `<${tag_name} class='x'>$&</${tag_name}>`,
+		replacement = `<${tag_name} class='word'>$&</${tag_name}>`,
 		length = skip_indexes ? skip_indexes.length : 0;
 
 	let
