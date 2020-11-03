@@ -1,3 +1,10 @@
+@media (prefers-color-scheme: dark) {
+	html {
+		color: #eee;
+		background: #111;
+	}
+}
+
 html, body, p 
 {
 	margin: 0;
