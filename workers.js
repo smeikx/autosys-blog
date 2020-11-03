@@ -23,38 +23,107 @@ const randomise_indexes = (array) =>
 }
 
 
-// create constructor function
+// This creates a constructor.
 const Worker = (() =>
 {
+	// TODO: respect margin/padding/border (subtract it from position, add it to dimensions)
+	// TODO: use scale instead of changing height & width
 	const transform_to = (target, source) =>
 	{
-		const bcr = source.getBoundingClientRect();
-		target.style.transform =
-			`translate(${bcr.x+window.pageXOffset}px,${bcr.y+window.pageYOffset}px)`;
-		target.style.width = bcr.width + 'px';
-		target.style.height = bcr.height + 'px';
+		const
+			source_bcr = source.getBoundingClientRect(),
+			x_pos = source_bcr.x + window.pageXOffset,
+			y_pos = source_bcr.y + window.pageYOffset;
+
+		target.style.transform = `translate(${x_pos}px,${y_pos}px)`;
+		target.style.width = source_bcr.width + 'px';
+		target.style.height = source_bcr.height + 'px';
 	}
 
-	// move the worker to a random target
-	const move_to_next = async function ()
+	// A dictionary of functions that make up the behaviour of the worker;
+	// the individual functions can be selected at worker creation.
+	const behaviour_functions =
 	{
-		this.current_target = this.targets[random_int(0, this.targets.length-1)];
-		transform_to(this.element, this.current_target);
+		task:
+		{
+			nothing: async function ()
+			{
+				return sleep(random_int(3500, 10000));
+			},
+			scan: async function ()
+			{
+			},
+			encrypt: async function ()
+			{
+			},
+			decrypt: async function ()
+			{
+			},
+			sort: async function ()
+			{
+			}
+		},
+		next_target_index:
+		{
+			in_order: function ()
+			{
+				return this.current_target_index = this.current_target_index % (this.targets.length - 1);
+			},
+			random: function ()
+			{
+				return this.current_target_index = random_int(0, this.targets.length - 1);
+			}
+		}
 	};
 
-	// append worker to DOM and make it move
+
+	// Keeps track of Elements that are currently being worked on.
+	const occupied = new Set();
+
+
+	const move_to_next_target = async function ()
+	{
+		// make sure not to assign to an element twice
+		let new_target;
+		do {
+			new_target = this.targets[this.next_target_index()];
+		} while (occupied.has(new_target));
+
+		occupied.add(new_target).delete(this.current_target);;
+		this.current_target = new_target;
+
+		transform_to(this.element, new_target);
+	};
+
+
+	// make a worker move and do its task
 	const start = async function ()
 	{
 		this.is_active = true;
-		document.body.appendChild(this.element);
 		do {
-			this.move_to_next();
-			await sleep(random_int(5000, 9000));
+			this.move_to_next_target();
+			await this.do_task();
 		} while (this.is_active);
 	};
 
-	return function (targets, current_target_index)
+
+	// append to DOM and start working
+	const init = async function ()
 	{
+		document.body.appendChild(this.element);
+		this.start();
+	};
+
+
+	// return the actual constructor
+	// The last two arguments want keys to the ‘behaviour_functions’ dictionary above.
+	return function (
+		targets, // an array of DOM elements
+		current_target_index = 0, // index of the element to start with
+		movement_func = 'random', // order in which elements are processed
+		task_func = 'nothing' // what the worker does with the element
+	) {
+		// create the DOM element
 		const element = document.createElement('div');
 		element.className = 'worker';
 
@@ -62,34 +131,43 @@ const Worker = (() =>
 		this.element = element;
 		this.targets = targets;
 		this.current_target = targets[current_target_index];
+		this.current_target_index = current_target_index;
 		this.is_active = false;
 
 		// methods
-		this.move_to_next = move_to_next;
+		this.move_to_next_target = move_to_next_target;
 		this.start = start;
-	};
+		this.init = init;
 
+		// behaviour
+		this.do_task = behaviour_functions.task[task_func];
+		this.next_target_index = behaviour_functions.next_target_index[movement_func];
+	};
 })();
 
 
-const worker_count = 20;
-const workers = new Array(worker_count);
+// create a fixed number of workers
+const workers = new Array(20);
 {
 	const targets = document.getElementsByClassName('word');
-	for (let worker, i = worker_count-1; i >= 0; --i)
+	for (let worker, i = workers.length-1; i >= 0; --i)
 	{
 		worker = new Worker(targets, random_int(0, targets.length-1));
-		worker.start();
+		worker.init();
 		workers[i] = worker;
 	}
 }
 
+
+// stops all workers
 const halt = () =>
 {
 	for (const worker of workers)
 		worker.is_active = false;
 };
 
+
+// (re)starts all workers
 const start = () =>
 {
 	for (const worker of workers)
