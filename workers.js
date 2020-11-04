@@ -5,22 +5,28 @@ const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const random_int = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 
+// This randomises an array in-place.
+const randomise_array = (array) =>
+{
+	for (let i = array.length - 1, j, tmp; i >= 0; --i)
+	{
+		j = random_int(0, i);
+		tmp = array[i];
+		array[i] = array[j];
+		array[j] = tmp;
+	}
+	return array;
+};
+
+
 /* This returns an array of shuffled indexes from a given array.
 */
 const randomise_indexes = (array) =>
 {
 	const length = array.length, indexes = new Array(length);
 	for (let i = 0; i < length; indexes[i] = i++);
-	
-	for (let i = 0, j, tmp; i < length; ++i)
-	{
-		j = random_int(0, i);
-		tmp = indexes[i];
-		indexes[i] = indexes[j];
-		indexes[j] = tmp;
-	}
-	return indexes;
-}
+	return randomise_array(indexes);
+};
 
 
 // This creates a constructor.
@@ -49,6 +55,22 @@ const Worker = (() =>
 			nothing: async function ()
 			{
 				return sleep(random_int(3500, 10000));
+			},
+			jumble: async function ()
+			{
+				const
+					original_content = this.current_target.innerText,
+					length = original_content.length,
+					jumbled = Array.from(original_content);
+
+				await sleep(3000); // TODO: use event listener (transitionEnd)
+				for (let i = 0; i < 5; ++i)
+				{
+					this.current_target.innerText = randomise_array(jumbled).join('');
+					await sleep(300);
+				}
+				this.current_target.innerText = original_content;
+				await sleep(1000);
 			},
 			scan: async function ()
 			{
