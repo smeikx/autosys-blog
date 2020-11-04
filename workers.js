@@ -185,7 +185,10 @@ const workers = new Array(20);
 const halt = () =>
 {
 	for (const worker of workers)
+	{
 		worker.is_active = false;
+		worker.element.classList.add('paused');
+	}
 };
 
 
@@ -193,5 +196,8 @@ const halt = () =>
 const start = () =>
 {
 	for (const worker of workers)
+	{
+		worker.element.classList.remove('paused');
 		worker.start();
+	}
 };

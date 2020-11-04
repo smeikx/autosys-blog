@@ -50,3 +50,8 @@ p
 		height 3s;
 	border-radius: .2rem;
 }
+
+.paused
+{
+	display: none;
+}
