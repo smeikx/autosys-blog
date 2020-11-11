@@ -2,7 +2,6 @@
 
 // simple helper functions
 const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const random_int = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 
 
 // This randomises an array in-place.
