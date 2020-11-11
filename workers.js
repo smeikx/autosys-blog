@@ -30,6 +30,7 @@ const randomise_indexes = (array) =>
 
 
 // This creates a constructor.
+// TODO: maybe move some functions to Worker.prototype
 const Worker = (() =>
 {
 	// TODO: respect margin/padding/border (subtract it from position, add it to dimensions)
