@@ -8,39 +8,39 @@
 
 html
 {
-	--light-color: #111;
-	--dark-color: #eee;
+	--light-color: #eee;
+	--dark-color: #111;
+	--accent-color: hsl(329, 96%, 58%);
+
+	--foreground-color: var(--dark-color);
+	--background-color: var(--light-color);
 
 	--border-width: .1rem;
 
-	font-family: sans-serif;
-	font-size: 18px;
-	line-height: 1.4;
+	border-color: var(--foreground-color);
+	color: var(--foreground-color);
+	background-color: var(--background-color);
 
-	border-color: var(--light-color);
-	color: var(--light-color);
-	background-color: var(--dark-color);
+	font: 18px 'Muli', sans-serif;
 }
 
 header
 {
 	width: 100%;
-	background-color: crimson;
-	margin: 0 auto;
 	text-align: center;
 	padding: 1rem 0;
 }
 
 header h1
 {
-	font-size: 5rem;
-	text-transform: uppercase;
-	letter-spacing: -.02em;
+	font: 500 7rem/.8 'Mourier', sans-serif;
 }
 
 #about
 {
-	font-style: italic;
+	font: 200 2rem 'Muli', sans-serif;
+	max-width: 28em;
+	margin: 1em auto 0 auto;
 }
 
 main
@@ -48,7 +48,7 @@ main
 	/* This is changed via JS, after some setup is done (necessary for Chromium). */
 	--animation-state: paused;
 
-	max-width: 40rem;
+	max-width: 60rem;
 	margin: 2rem auto;
 }
 
@@ -56,6 +56,7 @@ article
 {
 	border: var(--border-width) solid;
 	border-radius: 2px;
+
 	overflow: hidden;
 	position: relative; /* for positioning .author and .date */
 	
@@ -72,26 +73,26 @@ article
 	display: inline-block;
 	white-space: nowrap;
 
-	animation-name: title;
-	animation-duration: 5s;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
-	animation-play-state: var(--animation-state);;
+	animation: 5s linear 0s infinite normal none var(--animation-state) title;
 }
 
 .title-container, .meta
 {
-	color: var(--dark-color);
-	background-color: var(--light-color);
+	color: var(--background-color);
+	background-color: var(--foreground-color);
 }
 
 .title, .title-clone
 {
-	font-size: 2rem;
-	font-weight: bold;
-	line-height: 1.5;
-
+	font: 500 3rem 'Millimetre', sans-serif;
 	display: inline;
+}
+
+.separator
+{
+	opacity: .2;
+	margin: auto .3em;
+	font-family: 'Mourier';
 }
 
 @keyframes title
@@ -100,36 +101,31 @@ article
 	to { transform: translateX(var(--title-width)); }
 }
 
-.title:after, .title-clone:after
-{
-	content: ' ━ ';
-	opacity: .2;
-}
-
 .meta
 {
 	display: flex;
 	justify-content: space-between;
+	padding: 0 .4em .4em .4em;
 }
 
-/*
-.author, .date
+/* a filling line between author and date */
+.author:after
 {
-	z-index: 10;
-	position: absolute;
-	right: 0;
-	background-color: var(--dark-color);
-}
-*/
-
-.author
-{
-	bottom: 0;
+	content: '';
+	flex-grow: 1;
+	background-color: lime;
+	height: 1em;
 }
 
-.date
+.summary, .content
 {
-	top: 0;
+	padding: 0 1em;
+	margin-bottom: 1rem;
+}
+
+.summary
+{
+	margin-top: 1em;
 }
 
 .content
@@ -138,40 +134,17 @@ article
 	overflow: hidden;
 }
 
-p
-{
-	margin-bottom: 1rem;
-}
-
-.worker
-{
-	z-index: -1;
-	color: lime;
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-color: crimson;
-	transition:
-		transform 3s,
-		width 3s,
-		height 3s;
-	border-radius: .2rem;
-}
-
-.paused
-{
-	display: none;
-}
-
-@media (prefers-color-scheme: dark) {
-	html
-	{
-		--light-color: #eee;
-		--dark-color: #111;
-	}
-}
-
 article.open .content
 {
 	height: 100%;
 }
+
+
+@media (prefers-color-scheme: dark) {
+	html
+	{
+		--foreground-color: var(--light-color);
+		--background-color: var(--dark-color);
+	}
+}
+
