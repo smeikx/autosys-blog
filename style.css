@@ -17,11 +17,31 @@ html
 
 	--border-width: .1rem;
 
+	/* This is changed via JS, after some setup is done (necessary for Chromium). */
+	--animation-state: paused;
+
 	border-color: var(--foreground-color);
 	color: var(--foreground-color);
 	background-color: var(--background-color);
 
-	font: 18px 'Muli', sans-serif;
+	font: 18px 'Lack', 'Muli', sans-serif;
+}
+
+strong, b
+{
+	font-family: 'Lack Line';
+}
+
+.scroll-right
+{
+	--start-position: calc(-1 * var(--title-width));
+	--final-position: 0;
+}
+
+.scroll-left
+{
+	--start-position: 0;
+	--final-position: calc(-1 * var(--title-width));
 }
 
 header
@@ -31,23 +51,26 @@ header
 	padding: 1rem 0;
 }
 
-header h1
+header .title-container
 {
 	font: 500 7rem/.8 'Mourier', sans-serif;
 }
 
-#about
+#about, header p
 {
-	font: 200 2rem 'Muli', sans-serif;
+	font-size: 2rem;
 	max-width: 28em;
 	margin: 1em auto 0 auto;
+	display: inline;
+}
+
+h1
+{
+	font-weight: 900;
 }
 
 main
 {
-	/* This is changed via JS, after some setup is done (necessary for Chromium). */
-	--animation-state: paused;
-
 	max-width: 60rem;
 	margin: 2rem auto;
 }
@@ -74,17 +97,18 @@ article
 	white-space: nowrap;
 
 	animation: 5s linear 0s infinite normal none var(--animation-state) title;
+	animation-iteration-count: infinite;
 }
 
-.title-container, .meta
+article .title-container, .meta
 {
 	color: var(--background-color);
 	background-color: var(--foreground-color);
 }
 
-.title, .title-clone
+article .title, article .title-clone, .separator
 {
-	font: 500 3rem 'Millimetre', sans-serif;
+	font: 900 3rem 'Sporting Grotesque','Millimetre',sans-serif;
 	display: inline;
 }
 
@@ -92,13 +116,19 @@ article
 {
 	opacity: .2;
 	margin: auto .3em;
+	font: inherit;
 	font-family: 'Mourier';
+}
+
+header .separator
+{
+	margin: 0;
 }
 
 @keyframes title
 {
-	from { transform: translateX(0); }
-	to { transform: translateX(var(--title-width)); }
+	from { transform: translateX(var(--start-position)); }
+	to { transform: translateX(var(--final-position)); }
 }
 
 .meta
@@ -109,6 +139,7 @@ article
 }
 
 /* a filling line between author and date */
+/* TODO: make it work */
 .author:after
 {
 	content: '';
