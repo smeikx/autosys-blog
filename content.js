@@ -46,25 +46,27 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 // Set up the scrolling titles.
 {
 	const
-		articles = document.getElementsByTagName('article'),
-		titles = document.querySelectorAll('article .title');
+		previews = document.getElementsByClassName('preview'),
+		titles = document.querySelectorAll('.preview .title');
 
 	for (let i = titles.length - 1; i >= 0; --i)
 	{
 		prepare_scrolling_title(
 			titles[i],
-			articles[i].getBoundingClientRect().width,
+			previews[i].getBoundingClientRect().width,
 			random_int(80, 200));
 	}
 
 	// XXX: This is necessary for Chromium, because it only uses the updated CSS variable when the animation is started AFTER the variable is set.
 	document.body.style.setProperty('--animation-state', 'running');
 
-	for (let i = articles.length - 1; i >= 0; --i)
+	/*
+	for (let i = previews.length - 1; i >= 0; --i)
 	{
-		const article = articles[i];
-		article.addEventListener('click', () => article.classList.toggle('open'));
+		const preview = previews[i];
+		preview.addEventListener('click', () => preview.classList.toggle('open'));
 	}
+	*/
 }
 
 {
@@ -74,7 +76,7 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 		titles = header.getElementsByClassName('title');
 
 	for (let i = titles.length - 1; i >= 0; --i)
-		prepare_scrolling_title(titles[i], width, 100);
+		prepare_scrolling_title(titles[i], width, 50);
 }
 
 // TODO: update titles on resize

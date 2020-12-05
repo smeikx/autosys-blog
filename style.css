@@ -44,24 +44,30 @@ strong, b
 	--final-position: calc(-1 * var(--title-width));
 }
 
+@keyframes title
+{
+	from { transform: translateX(var(--start-position)); }
+	to { transform: translateX(var(--final-position)); }
+}
+
+
+
 header
 {
 	width: 100%;
 	text-align: center;
 	padding: 1rem 0;
+	overflow: hidden;
 }
 
 header .title-container
 {
-	font: 500 7rem/.8 'Mourier', sans-serif;
+	font: 500 7rem/.8 'Lack', 'Mourier', sans-serif;
 }
 
-#about, header p
+header .separator
 {
-	font-size: 2rem;
-	max-width: 28em;
-	margin: 1em auto 0 auto;
-	display: inline;
+	margin: 0;
 }
 
 h1
@@ -69,26 +75,76 @@ h1
 	font-weight: 900;
 }
 
+
+
 main
 {
-	max-width: 60rem;
-	margin: 2rem auto;
+	max-width: 100vw;
 }
 
-article
+main > *, .preview
 {
-	border: var(--border-width) solid;
-	border-radius: 2px;
-
+	max-width: 100%;
 	overflow: hidden;
-	position: relative; /* for positioning .author and .date */
-	
-	margin-bottom: 2rem;
+	margin: 5rem 0;
 }
+
+#about
+{
+	font-size: 2rem;
+}
+
+
+
+.preview
+{
+	clear: both;
+	font-size: 2rem;
+}
+
+.preview > *
+{
+	max-width: calc(100% - 16rem);
+}
+
+
+.thumbnail
+{
+	border: 3px solid #000;
+	width: 16rem;
+	height: 10rem;
+	overflow: hidden;
+	float: left;
+
+	position: relative;
+	z-index: 10;
+	background: honeydew;
+	margin-left: 15%;
+}
+.preview:nth-child(odd) .thumbnail
+{
+	float: right;
+	margin-left: 0;
+	margin-right: 15%;
+}
+
+.thumbnail p
+{
+	font-size: .5rem;
+}
+
+.thumbnail img
+{
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
 
 .title-bar
 {
-	display: table;
+	overflow: hidden;
+	padding-bottom: .3rem;
 }
 
 .title-container
@@ -97,22 +153,17 @@ article
 	white-space: nowrap;
 
 	animation: 5s linear 0s infinite normal none var(--animation-state) title;
+	animation-iteration-count: 2; /* XXX only while developing to save CPU */
 	animation-iteration-count: infinite;
 }
 
-article .title-container, .meta
+.preview .title, .preview .title-clone, .preview .separator
 {
-	color: var(--background-color);
-	background-color: var(--foreground-color);
+	font: 900 4rem/1 'Muli','Sporting Grotesque',sans-serif;
+	display: inline-block;
 }
 
-article .title, article .title-clone, .separator
-{
-	font: 900 3rem 'Sporting Grotesque','Millimetre',sans-serif;
-	display: inline;
-}
-
-.separator
+.title-container .separator
 {
 	opacity: .2;
 	margin: auto .3em;
@@ -120,55 +171,42 @@ article .title, article .title-clone, .separator
 	font-family: 'Mourier';
 }
 
-header .separator
-{
-	margin: 0;
-}
-
-@keyframes title
-{
-	from { transform: translateX(var(--start-position)); }
-	to { transform: translateX(var(--final-position)); }
-}
 
 .meta
 {
 	display: flex;
-	justify-content: space-between;
-	padding: 0 .4em .4em .4em;
 }
 
-/* a filling line between author and date */
-/* TODO: make it work */
-.author:after
+.meta .separator
+{
+	font: inherit;
+	margin: auto .2em;
+}
+
+.preview:nth-child(odd) .meta
+{
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+.preview:nth-child(odd) .meta:before, .preview:nth-child(even) .meta:after
 {
 	content: '';
+	display: block;
 	flex-grow: 1;
-	background-color: lime;
-	height: 1em;
+	height: .1em;
+	background: var(--foreground-color);
+	position: relative;
+	top: .6em;
 }
 
-.summary, .content
-{
-	padding: 0 1em;
-	margin-bottom: 1rem;
-}
 
-.summary
+.teaser
 {
-	margin-top: 1em;
-}
-
-.content
-{
-	height: 0;
+	white-space: nowrap;
 	overflow: hidden;
 }
 
-article.open .content
-{
-	height: 100%;
-}
 
 
 @media (prefers-color-scheme: dark) {
