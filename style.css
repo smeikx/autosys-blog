@@ -92,6 +92,9 @@ main > *, .preview
 #about
 {
 	font-size: 2rem;
+	column-width: 15em;
+	column-gap: 1em;
+	padding: 0 1em;
 }
 
 
