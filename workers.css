@@ -1,0 +1,20 @@
+.worker
+{
+	z-index: -1;
+	color: lime;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: crimson;
+	transition:
+		transform 3s,
+		width 3s,
+		height 3s;
+	border-radius: .2rem;
+}
+
+.paused
+{
+	display: none;
+}
+
