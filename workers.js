@@ -143,7 +143,7 @@ const Worker = (() =>
 		targets, // an array of DOM elements
 		current_target_index = 0, // index of the element to start with
 		movement_func = 'random', // order in which elements are processed
-		task_func = 'nothing' // what the worker does with the element
+		task_func = 'jumble' // what the worker does with the element
 	) {
 		// create the DOM element
 		const element = document.createElement('div');
