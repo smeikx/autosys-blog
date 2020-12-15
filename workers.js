@@ -170,7 +170,7 @@ const Worker = (() =>
 
 
 // create a fixed number of workers
-const workers = new Array(20);
+const workers = new Array(10);
 {
 	const targets = document.getElementsByClassName('word');
 	for (let worker, i = workers.length-1; i >= 0; --i)
