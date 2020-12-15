@@ -64,13 +64,14 @@ const Worker = (() =>
 					jumbled = Array.from(original_content);
 
 				await sleep(3000); // TODO: use event listener (transitionEnd)
-				for (let i = 0; i < 5; ++i)
+				const times = random_int(2, 7);
+				for (let i = 0; i < times; ++i)
 				{
 					this.current_target.innerText = randomise_array(jumbled).join('');
-					await sleep(300);
+					await sleep(random_int(300, 500));
 				}
 				this.current_target.innerText = original_content;
-				await sleep(1000);
+				await sleep(random_int(1000, 1500));
 			},
 			scan: async function ()
 			{
