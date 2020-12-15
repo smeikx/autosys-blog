@@ -15,7 +15,9 @@ html
 	--foreground-color: var(--dark-color);
 	--background-color: var(--light-color);
 
-	--edge-gap: 15vw;
+	/* TODO: set breakpoints to prevent negative margin */
+	/* (viewport_width - min_width) / (max_width - min_width) * max_margin */
+	--edge-gap: calc(((100vw - 1200px) / 800) * 200);
 	--border-width: .1rem;
 
 	/* This is changed via JS, after some setup is done (necessary for Chromium). */
