@@ -33,13 +33,13 @@ strong, b
 	font-family: 'Lack Line';
 }
 
-.scroll-right
+.scroll-right, .preview:nth-child(odd) .title-container
 {
 	--start-position: calc(-1 * var(--title-width));
 	--final-position: 0;
 }
 
-.scroll-left
+.scroll-left, .preview:nth-child(even) .title-container
 {
 	--start-position: 0;
 	--final-position: calc(-1 * var(--title-width));
