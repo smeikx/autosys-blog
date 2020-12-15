@@ -132,8 +132,7 @@ main > *, .preview
 
 .thumbnail
 {
-	--indentation: 15%; /* TODO: find sensible, scalable way of specifying this */
-	border: 3px solid var(--foreground-color);
+	border: 3px solid var(--accent-color);
 	width: var(--thumbnail-width);
 	height: 10rem;
 	overflow: hidden;
@@ -145,12 +144,12 @@ main > *, .preview
 .preview:nth-child(even) .thumbnail
 {
 	float: left;
-	margin-left: var(--indentation);
+	margin-left: var(--edge-gap);
 }
 .preview:nth-child(odd) .thumbnail
 {
 	float: right;
-	margin-right: var(--indentation);
+	margin-right: var(--edge-gap);
 }
 
 .thumbnail p
