@@ -141,7 +141,6 @@ main > *, .preview
 	position: relative; /* for moving to same stacking context as transformed elements (.title) */
 	z-index: 10;
 	background: var(--background-color);
-	box-shadow: 0 0 1rem .5rem var(--background-color);
 }
 .preview:nth-child(even) .thumbnail
 {
@@ -198,13 +197,25 @@ main > *, .preview
 }
 
 
-.preview:nth-child(even) .meta, .preview:nth-child(even) .teaser
+.preview:nth-child(even) .meta, .preview:nth-child(even) .teaser, .preview:nth-child(even) .title-bar
 {
 	padding-left: var(--margin-to-thumbnail);
+	mask-image: linear-gradient(
+		to right,
+		transparent 0%,
+		#000 1.5rem,
+		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
+		#000 100%);
 }
-.preview:nth-child(odd) .meta, .preview:nth-child(odd) .teaser
+.preview:nth-child(odd) .meta, .preview:nth-child(odd) .teaser, .preview:nth-child(odd) .title-bar
 {
 	padding-right: var(--margin-to-thumbnail);
+	mask-image: linear-gradient(
+		to left,
+		transparent 0%,
+		#000 1.5rem,
+		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
+		#000 100%);
 }
 
 .meta
