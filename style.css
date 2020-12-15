@@ -118,7 +118,7 @@ main > *, .preview
 .preview
 {
 	--thumbnail-width: 16rem;
-	--margin-to-thumbnail: 1rem;
+	--margin-to-thumbnail: 1.6rem;
 
 	clear: both;
 	font-size: 2rem;
