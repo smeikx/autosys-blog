@@ -1,5 +1,14 @@
 'use strict';
 
+/* TODO:
+- give each worker a constant speed (currently, it takes always the same amount of time to reach a target)
+- maybe don’t use a traveling frame, but maybe a dot, that overtakes its target (text color, background color)
+- prevent targeting elements left and right to the viewport
+- only actually operate on visible elements
+- give workers a tendency to appear in the viewport (this allows a reduced number of workers)
+- better use Animation API instead of CSS animations
+*/
+
 // simple helper functions
 const sleep = async (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
@@ -63,7 +72,7 @@ const Worker = (() =>
 					length = original_content.length,
 					jumbled = Array.from(original_content);
 
-				await sleep(3000); // TODO: use event listener (transitionEnd)
+				await sleep(3000); // TODO: use event listener (transitionEnd) – or use Animation API alltogehter
 				const times = random_int(2, 7);
 				for (let i = 0; i < times; ++i)
 				{
