@@ -1,9 +1,10 @@
-html, body, header, main, footer, h1, h2, h3, p, span, a, time, img, video, audio
+*
 {
 	margin: 0;
 	padding: 0;
 	border: none;
 	box-sizing: border-box;
+	font: inherit;
 }
 
 html
@@ -41,6 +42,11 @@ html
 {
 	--start-position: 0;
 	--final-position: calc(-1 * var(--title-width));
+}
+
+em, i
+{
+	font-style: italic;
 }
 
 a
