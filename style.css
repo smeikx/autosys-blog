@@ -109,28 +109,16 @@ header .title
 }
 
 
-
-main
-{
-	max-width: 100vw;
-}
-
-main > *, .preview
-{
-	max-width: 100%;
-	overflow: hidden;
-	margin: 5rem 0;
-}
-
-
-
 .preview
 {
 	--thumbnail-width: 16rem;
 	--margin-to-thumbnail: 1.6rem;
 
+	max-width: 100%;
+	overflow: hidden;
+	margin: 5rem 0;
+
 	clear: both;
-	font-size: 2rem;
 }
 
 .preview .title-bar, .preview .meta, .preview .teaser
