@@ -180,7 +180,7 @@ header .title
 	animation-iteration-count: infinite;
 }
 
-.preview .title, .preview .title-clone, .preview .separator
+.title, .title-clone
 {
 	display: inline-block;
 }
