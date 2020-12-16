@@ -31,11 +31,6 @@ html
 	overflow-x: clip;
 }
 
-strong, b
-{
-	font-family: 'Lack Line', sans-serif;
-}
-
 .scroll-right, .preview:nth-child(odd) .title-container
 {
 	--start-position: calc(-1 * var(--title-width));
