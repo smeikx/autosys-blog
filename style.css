@@ -43,6 +43,11 @@ html
 	--final-position: calc(-1 * var(--title-width));
 }
 
+a
+{
+	color: var(--accent-color);
+}
+
 @keyframes title
 {
 	from { transform: translateX(var(--start-position)); }
