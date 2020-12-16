@@ -135,7 +135,7 @@ main > *, .preview
 
 .preview .title-bar, .preview .meta, .preview .teaser
 {
-	max-width: calc(100% - 16rem);
+	max-width: calc(100% - var(--thumbnail-width));
 }
 
 
