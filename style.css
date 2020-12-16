@@ -27,7 +27,7 @@ html
 	color: var(--foreground-color);
 	background-color: var(--background-color);
 
-	font: 18px 'Lack', sans-serif;
+	font: 20px 'Lack', sans-serif;
 	overflow-x: clip;
 }
 
