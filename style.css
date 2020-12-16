@@ -27,13 +27,13 @@ html
 	color: var(--foreground-color);
 	background-color: var(--background-color);
 
-	font: 18px 'Lack', 'Muli', sans-serif;
+	font: 18px 'Lack', sans-serif;
 	overflow-x: clip;
 }
 
 strong, b
 {
-	font-family: 'Lack Line';
+	font-family: 'Lack Line', sans-serif;
 }
 
 .scroll-right, .preview:nth-child(odd) .title-container
@@ -66,7 +66,7 @@ header
 
 header h1, header .title-container
 {
-	font: 900 8rem/.8 'Minipax', 'Mourier', sans-serif;
+	font: 900 8rem/.9 'Minipax', serif;
 	text-align: center;
 	position: relative;
 	display: flex;
@@ -186,7 +186,7 @@ main > *, .preview
 
 .preview .title, .preview .title-clone, .preview .separator
 {
-	font: 900 4rem/1 'Minipax','Sporting Grotesque',sans-serif;
+	font: 900 4rem/1 'Minipax', serif;
 	display: inline-block;
 }
 
@@ -195,7 +195,6 @@ main > *, .preview
 	opacity: .2;
 	margin: auto .3em;
 	font: inherit;
-	font-family: 'Mourier';
 }
 
 
