@@ -100,10 +100,10 @@ header .title
 
 #about
 {
-	font-size: 2rem;
+	font-size: 1.3rem;
 	margin-top: 5rem;
 	padding: 0  calc(var(--edge-gap) - 1em) 0 var(--edge-gap);
-	column-width: 15em;
+	columns: 3 12em;
 	column-gap: 1em;
 	hyphens: auto;
 }
@@ -118,6 +118,8 @@ header .title
 	overflow: hidden;
 	margin: 5rem 0;
 
+	font-size: 1.3rem;
+	line-height: 1.5;
 	clear: both;
 }
 
