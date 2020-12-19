@@ -121,18 +121,22 @@ header .title
 	font-size: 1.3rem;
 	line-height: 1.5;
 	clear: both;
+
+	display: flex;
+	flex-direction: var(--direction);
 }
 
-.preview .title-bar, .preview .meta, .preview .teaser
+.text
 {
-	max-width: calc(100% - var(--thumbnail-width));
+	max-width: calc(100vw - var(--thumbnail-width) - var(--edge-gap));
 }
 
 
 .thumbnail
 {
 	border: 3px solid var(--accent-color);
-	width: var(--thumbnail-width);
+	border-radius: 3px;
+	min-width: var(--thumbnail-width);
 	height: 10rem;
 	overflow: hidden;
 
@@ -140,15 +144,15 @@ header .title
 	z-index: 10;
 	background: var(--background-color);
 }
-.preview:nth-child(even) .thumbnail
+.preview:nth-child(even)
 {
-	float: left;
-	margin-left: var(--edge-gap);
+	padding-right: var(--edge-gap);
+	--direction: row-reverse;
 }
-.preview:nth-child(odd) .thumbnail
+.preview:nth-child(odd)
 {
-	float: right;
-	margin-right: var(--edge-gap);
+	padding-left: var(--edge-gap);
+	--direction: row;
 }
 
 .thumbnail p
@@ -193,19 +197,8 @@ header .title
 }
 
 
-.preview:nth-child(even) .meta, .preview:nth-child(even) .teaser, .preview:nth-child(even) .title-bar
+.preview:nth-child(even) .text
 {
-	padding-left: var(--margin-to-thumbnail);
-	mask-image: linear-gradient(
-		to right,
-		transparent 0%,
-		#000 1.5rem,
-		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
-		#000 100%);
-}
-.preview:nth-child(odd) .meta, .preview:nth-child(odd) .teaser, .preview:nth-child(odd) .title-bar
-{
-	padding-right: var(--margin-to-thumbnail);
 	mask-image: linear-gradient(
 		to left,
 		transparent 0%,
@@ -213,10 +206,30 @@ header .title
 		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
 		#000 100%);
 }
+.preview:nth-child(odd) .text
+{
+	mask-image: linear-gradient(
+		to right,
+		transparent 0%,
+		#000 1.5rem,
+		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
+		#000 100%);
+}
+
+
+.preview:nth-child(odd) .meta, .preview:nth-child(odd) .teaser
+{
+	padding-left: var(--margin-to-thumbnail);
+}
+.preview:nth-child(even) .meta, .preview:nth-child(even) .teaser
+{
+	padding-right: var(--margin-to-thumbnail);
+}
 
 .meta
 {
 	display: flex;
+	flex-direction: var(--direction);
 }
 
 .meta .author
@@ -233,13 +246,7 @@ header .title
 	margin: auto .2em;
 }
 
-.preview:nth-child(odd) .meta
-{
-	flex-direction: row;
-	justify-content: flex-end;
-}
-
-.preview:nth-child(odd) .meta:before, .preview:nth-child(even) .meta:after
+.meta:after
 {
 	content: '';
 	display: block;
