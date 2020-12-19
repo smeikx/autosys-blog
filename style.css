@@ -251,10 +251,10 @@ header .title
 	content: '';
 	display: block;
 	flex-grow: 1;
-	height: .1em;
+	height: .05em;
 	background: var(--foreground-color);
 	position: relative;
-	top: .6em;
+	top: .8em;
 }
 
 
