@@ -234,10 +234,10 @@ header .title
 
 .meta .author
 {
-	max-width: 12em;
+	max-width: calc(100% - 9em);
 	white-space: nowrap;
 	overflow: hidden;
-	text-overflow: '.';
+	text-overflow: '.'; /* TODO: deal with unnecessarily inserted space */
 }
 
 .meta .separator
