@@ -59,6 +59,21 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 
 	// XXX: This is necessary for Chromium, because it only uses the updated CSS variable when the animation is started AFTER the variable has been set.
 	document.body.style.setProperty('--animation-state', 'running');
-}
 
-// TODO: update titles on resize
+	window.addEventListener('resize', (event) =>
+	{
+		// TODO: If window gets larger, add more clones.
+		for (let i = titles.length - 1; i >= 0; --i)
+		{
+			const
+				title = titles[i],
+				computed_style = window.getComputedStyle(title);
+
+			title.parentElement.style.setProperty(
+				'--title-width',
+				title.getBoundingClientRect().width +
+				parseFloat(computed_style.marginLeft) +
+				parseFloat(computed_style.marginRight) + 'px');
+		}
+	});
+}
