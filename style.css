@@ -67,7 +67,7 @@ header
 {
 	width: 100%;
 	padding-top: 1rem;
-	overflow: clip visible;
+	overflow: hidden visible;
 	color: var(--foreground-color);
 }
 
@@ -123,7 +123,7 @@ header .title
 
 	max-width: 100%;
 	height: var(--thumbnail-height);
-	overflow: clip visible;
+	overflow: hidden visible;
 	margin: 5rem 0;
 
 	font-size: 1.3rem;
@@ -159,7 +159,7 @@ header .title
 	max-width: var(--thumbnail-width);
 	max-height: var(--thumbnail-height);
 	border-radius: 3px;
-	overflow: clip;
+	overflow: hidden;
 
 	position: relative; /* for moving to same stacking context as transformed elements (.title) */
 	z-index: 10;
@@ -183,7 +183,7 @@ header .title
 .title-bar
 {
 	grid-area: title;
-	overflow: clip visible;
+	overflow: hidden visible;
 	font: 900 var(--title-font-size)/1 'Minipax', serif;
 	margin-top: -.15em;
 }
@@ -256,7 +256,7 @@ header .title
 {
 	max-width: calc(100% - 9em);
 	white-space: nowrap;
-	overflow: clip visible;
+	overflow: hidden visible;
 	text-overflow: '.'; /* TODO: deal with unnecessarily inserted space */
 }
 
