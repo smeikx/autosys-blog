@@ -131,25 +131,26 @@ header .title
 	clear: both;
 
 	display: grid;
+	grid-template-rows: calc(var(--title-font-size) * 1.07) 1fr;
 }
 
 .preview:nth-child(odd)
 {
 	padding-left: var(--edge-gap);
-	grid:
-		'thumbnail title' calc(var(--title-font-size) * 1.07)
-		'thumbnail info' 1fr
-		/ var(--thumbnail-width) calc(100% - var(--thumbnail-width));
 	--direction: row;
+	grid-template-areas:
+		'thumbnail title'
+		'thumbnail info';
+	grid-template-columns: var(--thumbnail-width) 1fr;
 }
 .preview:nth-child(even)
 {
 	padding-right: var(--edge-gap);
-	grid:
-		'title thumbnail' calc(var(--title-font-size) * 1.07)
-		'info thumbnail' 1fr
-		/ calc(100% - var(--thumbnail-width)) var(--thumbnail-width);
 	--direction: row-reverse;
+	grid-template-areas:
+		'title thumbnail'
+		'info thumbnail';
+	grid-template-columns: 1fr var(--thumbnail-width);
 }
 
 
@@ -213,6 +214,7 @@ header .title
 .preview .info
 {
 	grid-area: info;
+	overflow: hidden visible;
 }
 
 .preview:nth-child(even) .info,
