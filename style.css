@@ -67,7 +67,7 @@ header
 {
 	width: 100%;
 	padding-top: 1rem;
-	overflow: hidden visible;
+	overflow: hidden;
 	color: var(--foreground-color);
 }
 
@@ -123,7 +123,7 @@ header .title
 
 	max-width: 100%;
 	height: var(--thumbnail-height);
-	overflow: hidden visible;
+	overflow-x: hidden;
 	margin: 5rem 0;
 
 	font-size: 1.3rem;
@@ -137,7 +137,6 @@ header .title
 .preview:nth-child(odd)
 {
 	padding-left: var(--edge-gap);
-	--direction: row;
 	grid-template-areas:
 		'thumbnail title'
 		'thumbnail info';
@@ -146,7 +145,6 @@ header .title
 .preview:nth-child(even)
 {
 	padding-right: var(--edge-gap);
-	--direction: row-reverse;
 	grid-template-areas:
 		'title thumbnail'
 		'info thumbnail';
@@ -184,7 +182,7 @@ header .title
 .title-bar
 {
 	grid-area: title;
-	overflow: hidden visible;
+	overflow: hidden;
 	font: 900 var(--title-font-size)/1 'Minipax', serif;
 	margin-top: -.15em;
 }
@@ -214,7 +212,7 @@ header .title
 .preview .info
 {
 	grid-area: info;
-	overflow: hidden visible;
+	overflow: hidden;
 }
 
 .preview:nth-child(even) .info,
@@ -242,23 +240,24 @@ header .title
 .preview:nth-child(odd) .meta, .preview:nth-child(odd) .teaser
 {
 	padding-left: var(--margin-to-thumbnail);
+	flex-direction: row;
 }
 .preview:nth-child(even) .meta, .preview:nth-child(even) .teaser
 {
 	padding-right: var(--margin-to-thumbnail);
+	flex-direction: row-reverse;
 }
 
 .meta
 {
 	display: flex;
-	flex-direction: var(--direction);
 }
 
 .meta .author
 {
 	max-width: calc(100% - 9em);
 	white-space: nowrap;
-	overflow: hidden visible;
+	overflow: hidden;
 	text-overflow: '.'; /* TODO: deal with unnecessarily inserted space */
 }
 
@@ -283,7 +282,6 @@ header .title
 .teaser
 {
 	white-space: nowrap;
-	overflow: clip visible;
 }
 
 
