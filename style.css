@@ -342,6 +342,7 @@ header .title
 		font-size: 16px;
 	}
 
+
 	header .title-container
 	{
 		font-size: 100px;
@@ -357,8 +358,11 @@ header .title
 		display: none;
 	}
 
+
 	.preview
 	{
+		--edge-gap: .9rem;
+
 		display: flex;
 		flex-flow: row wrap;
 	}
@@ -366,6 +370,7 @@ header .title
 	{
 		order: 0;
 		width: 100%;
+		padding-bottom: .25em; /* this keeps decenders from being cut off */
 	}
 	.preview .thumbnail
 	{
@@ -374,10 +379,12 @@ header .title
 		max-width: 100%;
 		max-height: auto;
 		height: calc(100vw / 16 * 10);
+		margin: .5em var(--edge-gap) .7em; /* XXX: here is the spacing of all the children of .preview */
 	}
 	.preview .info
 	{
 		order: 2;
+		margin: 0 var(--edge-gap);
 	}
 }
 
