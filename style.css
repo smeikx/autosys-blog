@@ -400,4 +400,23 @@ header .title
 	{
 		flex-flow: row-reverse wrap;
 	}
+	.preview .title-bar
+	{
+		/*
+			max_width → 500px
+			min_width → 320px
+			max_val → 64px
+			min_val → 36px
+		*/
+		--title-font-size: calc(((500px - 320px) - (500px - 100vw)) * (64 - 36) / (500 - 320) + 36px)
+	}
+}
+
+
+@media screen and (max-width: 320px)
+{
+	.preview .title-bar
+	{
+		font-size: 36px;
+	}
 }
