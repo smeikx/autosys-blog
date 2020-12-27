@@ -122,41 +122,16 @@ header .title
 	--margin-to-thumbnail: 1.2rem;
 
 	max-width: 100%;
-	height: var(--thumbnail-height);
 	overflow-x: hidden;
 	margin: 5rem 0;
 
 	font-size: 1.3rem;
 	line-height: var(--line-height);
-	clear: both;
-
-	display: grid;
-	grid-template-rows: calc(var(--title-font-size) * 1.07) 1fr;
-}
-
-.preview:nth-child(odd)
-{
-	padding-left: var(--edge-gap);
-	grid-template-areas:
-		'thumbnail title'
-		'thumbnail info';
-	grid-template-columns: var(--thumbnail-width) 1fr;
-}
-.preview:nth-child(even)
-{
-	padding-right: var(--edge-gap);
-	grid-template-areas:
-		'title thumbnail'
-		'info thumbnail';
-	grid-template-columns: 1fr var(--thumbnail-width);
 }
 
 
 .thumbnail
 {
-	grid-area: thumbnail;
-	max-width: var(--thumbnail-width);
-	max-height: var(--thumbnail-height);
 	border-radius: 3px;
 	overflow: hidden;
 
@@ -164,11 +139,6 @@ header .title
 	z-index: 10;
 
 	background: var(--background-color);
-}
-
-.thumbnail p
-{
-	font-size: .5rem;
 }
 
 .thumbnail img
@@ -181,10 +151,8 @@ header .title
 
 .title-bar
 {
-	grid-area: title;
 	overflow: hidden;
 	font: 900 var(--title-font-size)/1 'Minipax', serif;
-	margin-top: -.15em;
 }
 
 .title-container
@@ -211,46 +179,9 @@ header .title
 
 .preview .info
 {
-	grid-area: info;
 	overflow: hidden;
 }
 
-.preview:nth-child(even) .info,
-.preview:nth-child(even) .title-bar
-{
-	--mask: linear-gradient(
-		to left,
-		transparent 0%,
-		#000 1.5rem,
-		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
-		#000 100%);
-	mask-image: var(--mask);
-	-webkit-mask-image: var(--mask);
-}
-.preview:nth-child(odd) .info,
-.preview:nth-child(odd) .title-bar
-{
-	--mask: linear-gradient(
-		to right,
-		transparent 0%,
-		#000 1.5rem,
-		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
-		#000 100%);
-	mask-image: var(--mask);
-	-webkit-mask-image: var(--mask);
-}
-
-
-.preview:nth-child(odd) .meta, .preview:nth-child(odd) .teaser
-{
-	padding-left: var(--margin-to-thumbnail);
-	flex-direction: row;
-}
-.preview:nth-child(even) .meta, .preview:nth-child(even) .teaser
-{
-	padding-right: var(--margin-to-thumbnail);
-	flex-direction: row-reverse;
-}
 
 .meta
 {
@@ -259,7 +190,6 @@ header .title
 
 .meta .author
 {
-	max-width: calc(100% - 9em);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: '.'; /* TODO: deal with unnecessarily inserted space */
@@ -301,6 +231,92 @@ header .title
 
 
 
+/* for Desktop */
+@media screen and (min-width: 700px)
+{
+	.preview
+	{
+		height: var(--thumbnail-height);
+		display: grid;
+		grid-template-rows: calc(var(--title-font-size) * 1.07) 1fr;
+	}
+	.preview:nth-child(odd)
+	{
+		padding-left: var(--edge-gap);
+		grid-template-areas:
+		'thumbnail title'
+		'thumbnail info';
+		grid-template-columns: var(--thumbnail-width) 1fr;
+	}
+	.preview:nth-child(even)
+	{
+		padding-right: var(--edge-gap);
+		grid-template-areas:
+		'title thumbnail'
+		'info thumbnail';
+		grid-template-columns: 1fr var(--thumbnail-width);
+	}
+
+	.thumbnail
+	{
+		grid-area: thumbnail;
+		max-width: var(--thumbnail-width);
+		max-height: var(--thumbnail-height);
+	}
+	.title-bar
+	{
+		grid-area: title;
+		margin-top: -.15em;
+	}
+	.info
+	{
+		grid-area: info;
+	}
+
+	.preview:nth-child(even) .info,
+	.preview:nth-child(even) .title-bar
+	{
+		--mask: linear-gradient(
+			to left,
+			transparent 0%,
+			#000 1.5rem,
+			#000 calc(var(--margin-to-thumbnail) - 1.5rem),
+			#000 100%);
+		mask-image: var(--mask);
+		-webkit-mask-image: var(--mask);
+	}
+	.preview:nth-child(odd) .info,
+	.preview:nth-child(odd) .title-bar
+	{
+		--mask: linear-gradient(
+			to right,
+			transparent 0%,
+			#000 1.5rem,
+			#000 calc(var(--margin-to-thumbnail) - 1.5rem),
+			#000 100%);
+		mask-image: var(--mask);
+		-webkit-mask-image: var(--mask);
+	}
+
+	.preview:nth-child(odd) .meta,
+	.preview:nth-child(odd) .teaser
+	{
+		flex-direction: row;
+		padding-left: var(--margin-to-thumbnail);
+	}
+	.preview:nth-child(even) .meta,
+	.preview:nth-child(even) .teaser
+	{
+		flex-direction: row-reverse;
+		padding-right: var(--margin-to-thumbnail);
+	}
+
+	.meta .author
+	{
+		max-width: calc(100% - 9em);
+	}
+}
+
 /* from this point on the page scales down until thumbnail and text don’t fit next to each other anymore*/
 @media screen and (max-width: 1300px)
 {
@@ -319,6 +335,28 @@ header .title
 	html
 	{
 		font-size: 16px;
+	}
+	.preview
+	{
+		display: flex;
+		flex-flow: row wrap;
+	}
+	.preview .title-bar
+	{
+		order: 0;
+		width: 100%;
+	}
+	.preview .thumbnail
+	{
+		order: 1;
+		width: 100%;
+		max-width: 100%;
+		max-height: auto;
+		height: calc(100vw / 16 * 10);
+	}
+	.preview .info
+	{
+		order: 2;
 	}
 }
 
