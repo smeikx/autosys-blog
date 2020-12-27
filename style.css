@@ -326,6 +326,11 @@ header .title
 		/* (viewport_width - min_width) / (max_width - min_width) * (max_size - min_size) + min_size */
 		font-size: calc((100vw - 700px) / (1300 - 700) * (20 - 16) + 16px);
 	}
+
+	header .title-container
+	{
+		font-size: calc((100vw - 700px) / (1300 - 700) * (160 - 100) + 100px);
+	}
 }
 
 
@@ -336,6 +341,22 @@ header .title
 	{
 		font-size: 16px;
 	}
+
+	header .title-container
+	{
+		font-size: 100px;
+	}
+
+	header .title
+	{
+		white-space: initial;
+	}
+
+	header .title-clone
+	{
+		display: none;
+	}
+
 	.preview
 	{
 		display: flex;
