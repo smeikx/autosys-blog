@@ -218,22 +218,26 @@ header .title
 .preview:nth-child(even) .info,
 .preview:nth-child(even) .title-bar
 {
-	mask-image: linear-gradient(
+	--mask: linear-gradient(
 		to left,
 		transparent 0%,
 		#000 1.5rem,
 		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
 		#000 100%);
+	mask-image: var(--mask);
+	-webkit-mask-image: var(--mask);
 }
 .preview:nth-child(odd) .info,
 .preview:nth-child(odd) .title-bar
 {
-	mask-image: linear-gradient(
+	--mask: linear-gradient(
 		to right,
 		transparent 0%,
 		#000 1.5rem,
 		#000 calc(var(--margin-to-thumbnail) - 1.5rem),
 		#000 100%);
+	mask-image: var(--mask);
+	-webkit-mask-image: var(--mask);
 }
 
 
