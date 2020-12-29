@@ -86,6 +86,7 @@ header .title-container:nth-child(2)
 {
 	justify-content: flex-end;
 	text-align: right;
+	padding-bottom: .3em;
 }
 header .title-container:nth-child(1)
 {
@@ -110,7 +111,7 @@ footer
 #about
 {
 	font-size: 1.3rem;
-	margin-top: 5rem;
+	margin-top: 2rem;
 	padding: 0  calc(var(--edge-gap) - 1em) 0 var(--edge-gap);
 	columns: 3 12em;
 	column-gap: 1em;
