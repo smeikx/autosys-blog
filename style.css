@@ -71,7 +71,7 @@ header
 	color: var(--foreground-color);
 }
 
-header h1, header .title-container
+header .title-container
 {
 	font: 900 8rem/.9 'Minipax', serif;
 	text-align: center;

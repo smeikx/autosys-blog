@@ -3,13 +3,25 @@ article
 	--max-width: 42rem;
 	max-width: var(--max-width);
 	margin: 1rem auto 3rem;
-	font: 1rem/1.4 'Muli', 'Lack', sans-serif;
+	font-family: 'Muli', 'Lack', sans-serif;
 }
 
-img, iframe, audio, video
+article
+{
+	--edge-gap: .5rem;
+	padding-left: var(--edge-gap);
+}
+
+article > *
+{
+	/* as text has no clear right edge, it needs less distance to the viewports edge */
+	max-width: calc(100% - .3rem);
+}
+
+img, iframe, audio, video, pre
 {
 	display: block;
-	width: 100%;
+	width: calc(100% - var(--edge-gap));
 }
 
 iframe
@@ -55,22 +67,31 @@ h3
 	font-size: 1.5rem;
 }
 
+code
+{
+	font-size: 1.15em;
+	padding: 0 .3em .2em .1em;
+}
+
 pre code
 {
 	border: none;
 	padding: 0;
 }
 
-code, pre
+pre,
+code
 {
 	white-space: pre-wrap;
-	font-family: monospace;
+	font-family: 'Compagnon', monospace;
 	border: 1px solid #8887;
 	border-radius: 5px;
-	padding: 0.07em;
 }
 
 pre
 {
-	padding: .5em;
+	line-height: 1.1;
+	padding-left: .5em;
+	padding-top: .4em;
+	padding-bottom: .8em;
 }
