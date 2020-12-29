@@ -80,6 +80,7 @@ header .title-container
 	flex-wrap: wrap;
 	padding: 0 var(--edge-gap);
 	user-select: none;
+	color: var(--foreground-color);
 }
 
 header .title-container:nth-child(2)
@@ -97,6 +98,16 @@ header .title
 {
 	color: var(--accent-color);
 	user-select: text;
+}
+
+header a:hover .title-container
+{
+	color: var(--accent-color);
+}
+
+header a:hover .title
+{
+	color: var(--foreground-color);
 }
 
 
