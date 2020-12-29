@@ -1,0 +1,64 @@
+@font-face
+{
+	font-family: 'Minipax';
+	font-display: block;
+	src:
+		url('minipax-bold.woff2') format('woff2'),
+		url('minipax-bold.woff') format('woff');
+	font-weight: bold;
+}
+
+@font-face
+{
+	font-family: 'Lack';
+	font-display: swap;
+	src:
+		url('lack-regular.woff2') format('woff2'),
+		url('lack-regular.woff') format('woff');
+}
+
+@font-face
+{
+	font-family: 'Muli';
+	font-display: swap;
+	src:
+		url('muli.woff2') format('woff2'),
+		url('muli.woff') format('woff');
+}
+@font-face
+{
+	font-family: 'Muli';
+	font-display: swap;
+	src:
+		url('muli-italic.woff2') format('woff2'),
+		url('muli-italic.woff') format('woff');
+	font-style: italic;
+}
+@font-face
+{
+	font-family: 'Muli';
+	font-display: swap;
+	src:
+		url('muli-bold.woff2') format('woff2'),
+		url('muli-bold.woff') format('woff');
+	font-weight: bold;
+}
+@font-face
+{
+	font-family: 'Muli';
+	font-display: swap;
+	src:
+		url('muli-bold-italic.woff2') format('woff2'),
+		url('muli-bold-italic.woff') format('woff');
+	font-weight: bold;
+	font-style: italic;
+}
+
+@font-face
+{
+	font-family: 'Compagnon';
+	font-display: swap;
+	src:
+		url('compagnon-bold.woff2') format('woff2'),
+		url('compagnon-bold.woff') format('woff');
+}
