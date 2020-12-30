@@ -77,3 +77,5 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 		}
 	});
 }
+
+// TODO: Use FontFaceSet.ready.then((font_face_set) => {…}) to recalculate --title-width.
