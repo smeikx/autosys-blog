@@ -59,6 +59,8 @@ local function parse_post (package_path)
 				meta.tags[i] = tag:match('^%s*(.*%S)%s*')
 			end
 		end
+
+		post.thumbnail = content:match('thumbnail:%s*([^\n]+)'):match('^(.*%S)%s*')
 	end
 
 	local markdown <close> = assert(io.popen(string.format("markdown -f '-smarty,+fencedcode' '%s/content.md'", package_path)))
