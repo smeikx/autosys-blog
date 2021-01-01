@@ -63,6 +63,29 @@ h3
 	font-size: 1.5rem;
 }
 
+
+.meta
+{
+	margin-bottom: 2rem;
+}
+
+.meta .author
+{
+	order: 1;
+}
+
+.meta:after
+{
+	order: 2;
+	margin: 0 .5em;
+}
+
+.meta .date
+{
+	order: 3;
+}
+
+
 code
 {
 	font-size: 1.12em;
