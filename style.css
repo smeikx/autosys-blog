@@ -218,17 +218,18 @@ footer
 	display: flex;
 }
 
+.preview:nth-child(odd) .date:after,
+.preview:nth-child(even) .date:before
+{
+	content: '~';
+	margin: auto .2em;
+}
+
 .meta .author
 {
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: '.'; /* TODO: deal with unnecessarily inserted space */
-}
-
-.meta .separator
-{
-	font: inherit;
-	margin: auto .2em;
 }
 
 .meta:after
