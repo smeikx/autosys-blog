@@ -85,6 +85,11 @@ h3
 	order: 3;
 }
 
+.meta + p
+{
+	font-size: 1.4rem;
+}
+
 
 code
 {
