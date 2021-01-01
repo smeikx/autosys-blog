@@ -16,6 +16,7 @@ article > *
 {
 	/* as text has no clear right edge, it needs less distance to the viewports edge */
 	max-width: calc(100% - .3rem);
+	margin-bottom: 1rem;
 }
 
 img, iframe, audio, video, pre
@@ -27,11 +28,6 @@ img, iframe, audio, video, pre
 iframe
 {
 	height: calc(var(--max-width) * 9/16);
-}
-
-article > *
-{
-	margin-bottom: 1rem;
 }
 
 h1, h2, h3
