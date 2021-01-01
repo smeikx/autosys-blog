@@ -55,6 +55,8 @@ a
 	color: var(--accent-color);
 }
 
+/* TODO: Figure out why mobile Safari doesn’t like this;
+will likely have tobe done via Animation API in JS. */
 @keyframes title
 {
 	from { transform: translateX(var(--start-position)); }
