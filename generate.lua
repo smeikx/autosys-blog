@@ -72,4 +72,11 @@ local function parse_post (package_path)
 		local _, title_end = content:find('</h1>')
 		post.content = content:sub(0, title_end) .. '{{{meta}}}' .. content:sub(title_end)
 	end
+
+	do
+		local _, teaser_start = content:find('<p>')
+		local teaser_end, _ = content:find('</p>')
+		local teaser = content:sub(teaser_start + 1, teaser_end - 1)
+		post.teaser = teaser:rep(math.ceil(200 / teaser:len())):sub(0, 200)
+	end
 end
