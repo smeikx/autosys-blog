@@ -12,15 +12,16 @@ assert(os.execute('mkdir '..OUT_PATH))
 
 
 local TEMPLATES <const> = {}
-for _,template in ipairs{'home', 'post', 'preview', 'footer', 'meta'}
+for _,template in ipairs{'home', 'post', 'preview', 'footer', 'meta', 'thumbnail'}
 do
 	local file <close> = assert(io.open('templates/'..template..'.html'))
 	TEMPLATES[template] = file:read('a')
 end
 
+
 for _,template in ipairs{'home', 'post'}
 do
-	TEMPLATES[template]:gsub('{{{footer}}}', TEMPLATES.footer)
+	TEMPLATES[template] = TEMPLATES[template]:gsub('{{{footer}}}', TEMPLATES.footer)
 end
 
 
@@ -43,7 +44,7 @@ local function parse_post (package_path)
 	-- parse meta data (date, author, tags, thumbnail)
 	do
 		local meta_file <close> = assert(io.open(package_path..'/meta.txt'))
-		local content = meta_file:read('a')
+		local content <const> = meta_file:read('a')
 
 		post.datetime = content:match('date:%s*(%d%d%d%d%-[01][1-9]%-[0-3][1-9])%s*')
 		do
@@ -53,14 +54,17 @@ local function parse_post (package_path)
 		post.author = content:match('author:%s*([^\n]+)'):match('^(.*%S)%s*')
 		do
 			local i = 0
-			for tag in meta:match('tags:%s*([^\n]+)'):gmatch('[^;]+')
+			for tag in content:match('tags:%s*([^\n]+)'):gmatch('[^;]+')
 			do
 				i = i + 1
-				meta.tags[i] = tag:match('^%s*(.*%S)%s*')
+				post.tags[i] = tag:match('^%s*(.*%S)%s*')
 			end
 		end
 
-		post.thumbnail = content:match('thumbnail:%s*([^\n]+)'):match('^(.*%S)%s*')
+		do
+			local thumbnail = content:match('thumbnail:%s*([^\n]+)')
+			post.thumbnail = thumbnail and TEMPLATES.thumbnail:gsub('{{{thumbnailurl}}}', thumbnail:match('^(.*%S)%s*')) or ''
+		end
 	end
 
 	-- set URL
@@ -72,7 +76,7 @@ local function parse_post (package_path)
 
 	-- parse markdown
 	local markdown <close> = assert(io.popen(string.format("markdown -f '-smarty,+fencedcode' '%s/content.md'", package_path)))
-	local content <const> = markdow:read('a')
+	local content <const> = markdown:read('a')
 
 	-- extract title → first H1
 	post.title = content:match('<h1>([^<]+)</h1>')
@@ -82,13 +86,13 @@ local function parse_post (package_path)
 		local _, teaser_start = content:find('<p>')
 		local teaser_end, _ = content:find('</p>')
 		local teaser = content:sub(teaser_start + 1, teaser_end - 1)
-		post.teaser = teaser:rep(math.ceil(200 / teaser:len())):sub(0, 200)
+		post.teaser = teaser:rep(math.ceil(200 / teaser:len()), ' '):sub(0, 200)
 	end
 
 	-- inject meta HTML into content after title
 	do
 		local _, title_end = content:find('</h1>')
-		post.content = content:sub(0, title_end) .. post.meta .. content:sub(title_end)
+		post.content = content:sub(0, title_end) .. post.meta .. content:sub(title_end + 1)
 	end
 
 	-- generate preview HTML
@@ -109,7 +113,7 @@ do
 
 	-- write the post’s HTML
 	local page <close> = assert(io.open(out_path..'/index.html', 'w'))
-	page:write(TEMPLATES.post:gsub('{{{(%w+)}}}', post))
+	page:write(TEMPLATES.post:gsub('{{{(%w+)}}}', post) .. '\n')
 
 	-- copy all relevant media files with the help of a script
 	assert(os.execute(string.format("helpers/copy-media.sh '%s' '%s'", package_path, out_path)))
@@ -120,11 +124,11 @@ end
 
 
 -- copy all shared files (CSS, JS) to destination
-assert(os.execute(string.format("cp -r style.css post.css split-in-tags.js content.js fonts '%s/'", OUT_PATH)))
+assert(os.execute(string.format("cp -r style.css post.css split-in-tags.js common.js content.js fonts '%s/'", OUT_PATH)))
 
 
 -- write the home page
 do
 	local homepage <close> = assert(io.open(OUT_PATH..'/index.html', 'w'))
-	homepage:write(TEMPLATES.home:gsub('{{{previews}}}', table.concat(PREVIEWS)))
+	homepage:write(TEMPLATES.home:gsub('{{{previews}}}', table.concat(PREVIEWS)) .. '\n')
 end

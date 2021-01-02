@@ -168,7 +168,7 @@ footer
 	position: relative; /* for moving to same stacking context as transformed elements (.title) */
 	z-index: 10;
 
-	background: var(--background-color);
+	background: var(--accent-color);
 }
 
 .thumbnail img
