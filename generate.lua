@@ -3,6 +3,9 @@
 -- This program takes a list of package paths as arguments.
 -- The order of the arguments defines the order they appear on the homepage.
 
+-- This assumes thes ‘Discount’ markdown implementation:
+-- https://www.pell.portland.or.us/~orc/Code/discount/
+
 --[[
 	TODO:
 	sort processed after date
@@ -15,7 +18,7 @@
 		Post (multiple)
 ]]--
 
-local OUT_PATH <const> = 'generated'
+local OUT_PATH <const> = 'output'
 assert(os.execute('mkdir '..OUT_PATH))
 
 
@@ -26,21 +29,29 @@ do
 	TEMPLATES[template] = file:read('a')
 end
 
+for _,template in ipairs{'home', 'post'}
+do
+	TEMPLATES[template]:gsub('{{{footer}}}', TEMPLATES.footer)
+end
 
-local POSTS <const> = {}
+
 local function parse_post (package_path)
 	local post <const> =
 	{
+		title = '',
 		date = '',
 		datetime = '',
 		author = '',
 		tags = {},
-		meta = '',
 		content = '',
 		teaser = '',
 		thumbnail = '',
-		title = ''
+		meta = '',
+		preview = '',
+		url = ''
 	}
+
+	-- parse meta data (date, author, tags, thumbnail)
 	do
 		local meta_file <close> = assert(io.open(package_path..'/meta.txt'))
 		local content = meta_file:read('a')
@@ -63,20 +74,46 @@ local function parse_post (package_path)
 		post.thumbnail = content:match('thumbnail:%s*([^\n]+)'):match('^(.*%S)%s*')
 	end
 
-	local markdown <close> = assert(io.popen(string.format("markdown -f '-smarty,+fencedcode' '%s/content.md'", package_path)))
-	local content = markdow:read('a')
+	-- set URL
+	-- XXX: might lead to collisions
+	post.url = post.datetime
 
+	-- generate meta HTML
+	post.meta = TEMPLATES.meta:gsub('{{{(%w+)}}}', post)
+
+	-- parse markdown
+	local markdown <close> = assert(io.popen(string.format("markdown -f '-smarty,+fencedcode' '%s/content.md'", package_path)))
+	local content <const> = markdow:read('a')
+
+	-- extract title → first H1
 	post.title = content:match('<h1>([^<]+)</h1>')
 
-	do
-		local _, title_end = content:find('</h1>')
-		post.content = content:sub(0, title_end) .. '{{{meta}}}' .. content:sub(title_end)
-	end
-
+	-- extract teaser → first paragraph (repeated to 200 characters)
 	do
 		local _, teaser_start = content:find('<p>')
 		local teaser_end, _ = content:find('</p>')
 		local teaser = content:sub(teaser_start + 1, teaser_end - 1)
 		post.teaser = teaser:rep(math.ceil(200 / teaser:len())):sub(0, 200)
 	end
+
+	-- inject meta HTML into content after title
+	do
+		local _, title_end = content:find('</h1>')
+		post.content = content:sub(0, title_end) .. post.meta .. content:sub(title_end)
+	end
+
+	-- generate preview HTML
+	post.preview = TEMPLATES.preview:gsub('{{{(%w+)}}}', post)
+
+	return post
 end
+
+
+local POSTS <const> = {}
+local PREVIEWS <const> = {}
+for i, package_path in ipairs(arg)
+do
+	POSTS[i] = parse_post(package_path)
+	PREVIEWS[i] = POSTS[i].preview
+end
+
