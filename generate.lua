@@ -6,17 +6,6 @@
 -- This assumes thes ‘Discount’ markdown implementation:
 -- https://www.pell.portland.or.us/~orc/Code/discount/
 
---[[
-	TODO:
-	sort processed after date
-	compose previews
-	compose posts
-		insert author & date into processed markdown
-
-	Site Structure:
-		Homepage (Previews)
-		Post (multiple)
-]]--
 
 local OUT_PATH <const> = 'output'
 assert(os.execute('mkdir '..OUT_PATH))
@@ -109,11 +98,33 @@ local function parse_post (package_path)
 end
 
 
-local POSTS <const> = {}
 local PREVIEWS <const> = {}
 for i, package_path in ipairs(arg)
 do
-	POSTS[i] = parse_post(package_path)
-	PREVIEWS[i] = POSTS[i].preview
+	local post <const> = parse_post(package_path)
+
+	-- set path and create dictionary for post’s content
+	local out_path <const> = OUT_PATH..'/'..post.url
+	assert(os.execute(string.format("mkdir '%s'", out_path)))
+
+	-- write the post’s HTML
+	local page <close> = assert(io.open(out_path..'/index.html', 'w'))
+	page:write(TEMPLATES.post:gsub('{{{(%w+)}}}', post))
+
+	-- copy all relevant media files with the help of a script
+	assert(os.execute(string.format("helpers/copy-media.sh '%s' '%s'", package_path, out_path)))
+
+	-- record the preview for the creation of the homepage
+	PREVIEWS[i] = post.preview
 end
 
+
+-- copy all shared files (CSS, JS) to destination
+assert(os.execute(string.format("cp -r style.css post.css split-in-tags.js content.js fonts '%s/'", OUT_PATH)))
+
+
+-- write the home page
+do
+	local homepage <close> = assert(io.open(OUT_PATH..'/index.html', 'w'))
+	homepage:write(TEMPLATES.home:gsub('{{{previews}}}', table.concat(PREVIEWS)))
+end
