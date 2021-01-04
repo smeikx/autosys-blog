@@ -12,7 +12,7 @@ assert(os.execute('mkdir '..OUT_PATH))
 
 
 local TEMPLATES <const> = {}
-for _,template in ipairs{'home', 'post', 'preview', 'footer', 'meta', 'thumbnail'}
+for _,template in ipairs{'home', 'post', 'preview', 'footer', 'meta', 'thumbnail', 'site-title'}
 do
 	local file <close> = assert(io.open('templates/'..template..'.html'))
 	TEMPLATES[template] = file:read('a')
@@ -21,7 +21,7 @@ end
 
 for _,template in ipairs{'home', 'post'}
 do
-	TEMPLATES[template] = TEMPLATES[template]:gsub('{{{footer}}}', TEMPLATES.footer)
+	TEMPLATES[template] = TEMPLATES[template]:gsub('{{{([%w_-]+)}}}', TEMPLATES)
 end
 
 
