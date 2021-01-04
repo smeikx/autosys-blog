@@ -58,7 +58,21 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 	}
 
 	// XXX: This is necessary for Chromium, because it only uses the updated CSS variable when the animation is started AFTER the variable has been set.
-	document.body.style.setProperty('--animation-state', 'running');
+	document.documentElement.style.setProperty('--animation-state', 'running');
+
+	const style = document.createElement('style');
+	const styling =
+		`.title-container
+		{
+			animation: .1s linear 0s infinite normal none var(--animation-state) title;
+		}
+		@keyframes title
+		{
+			from { transform: translateX(var(--start-position)); }
+			to { transform: translateX(var(--final-position)); }
+		}`;
+	style.innerHTML = styling;
+	document.head.appendChild(style);
 
 	window.addEventListener('resize', (event) =>
 	{
@@ -75,7 +89,12 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 				parseFloat(computed_style.marginLeft) +
 				parseFloat(computed_style.marginRight) + 'px');
 		}
+		style.innerHTML = '';
+		setTimeout(() => style.innerHTML = styling, 100);
 	});
+}
+
+{
 }
 
 // TODO: Use FontFaceSet.ready.then((font_face_set) => {…}) to recalculate --title-width.

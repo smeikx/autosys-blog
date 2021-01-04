@@ -22,7 +22,8 @@ html
 	--border-width: .1rem;
 
 	/* This is changed via JS, after some setup is done (necessary for Chromium). */
-	--animation-state: paused;
+	--animation-state: running;
+	--title-width: 300px;
 
 	max-width: 100vw;
 
@@ -56,13 +57,13 @@ a
 }
 
 /* TODO: Figure out why mobile Safari doesn’t like this;
-will likely have tobe done via Animation API in JS. */
+will likely have tobe done via Animation API in JS.
 @keyframes title
 {
 	from { transform: translateX(var(--start-position)); }
 	to { transform: translateX(var(--final-position)); }
 }
-
+*/
 
 
 header
@@ -200,8 +201,9 @@ footer
 	display: inline-block;
 	white-space: nowrap;
 
-	animation: 5s linear 0s infinite normal none var(--animation-state) title;
-	animation-iteration-count: 1;
+	/*
+	animation: .1s linear 0s infinite normal none var(--animation-state) title;
+	*/
 }
 
 .title, .title-clone
