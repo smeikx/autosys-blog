@@ -57,9 +57,21 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 			random_int(80, 200));
 	}
 
-	// XXX: This is necessary for Chromium, because it only uses the updated CSS variable when the animation is started AFTER the variable has been set.
-	document.body.style.setProperty('--animation-state', 'running');
+	// XXX: It seems Safari can neither update ‘@keyframes’ nor ‘animation’ properties when they contain custom properties that are being changed via JS.
+	// The following horrible hack adds the affected CSS with a <style> tag and overwrites its content on resize.
+	const style = document.createElement('style');
+	const styling =
+		`.title-container {
+			animation: .1s linear 0s infinite normal none running title;
+		}
+		@keyframes title {
+			from { transform: translateX(var(--start-position)); }
+			to { transform: translateX(var(--final-position)); }
+		}`;
+	style.innerHTML = styling;
+	document.head.appendChild(style);
 
+	let timer;
 	window.addEventListener('resize', (event) =>
 	{
 		// TODO: If window gets larger, add more clones.
@@ -75,6 +87,9 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 				parseFloat(computed_style.marginLeft) +
 				parseFloat(computed_style.marginRight) + 'px');
 		}
+		style.innerHTML = '';
+		if (timer) clearTimeout(timer);
+		timer = setTimeout(() => style.innerHTML = styling, 50);
 	});
 }
 
