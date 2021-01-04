@@ -72,7 +72,7 @@ local function parse_post (package_path)
 	post.url = post.datetime
 
 	-- generate meta HTML
-	post.meta = TEMPLATES.meta:gsub('{{{(%w+)}}}', post)
+	post.meta = TEMPLATES.meta:gsub('{{{([%w_-]+)}}}', post)
 
 	-- parse markdown
 	local markdown <close> = assert(io.popen(string.format("markdown -f '-smarty,+fencedcode' '%s/content.md'", package_path)))
@@ -96,7 +96,7 @@ local function parse_post (package_path)
 	end
 
 	-- generate preview HTML
-	post.preview = TEMPLATES.preview:gsub('{{{(%w+)}}}', post)
+	post.preview = TEMPLATES.preview:gsub('{{{([%w_-]+)}}}', post)
 
 	return post
 end
@@ -113,7 +113,7 @@ do
 
 	-- write the post’s HTML
 	local page <close> = assert(io.open(out_path..'/index.html', 'w'))
-	page:write(TEMPLATES.post:gsub('{{{(%w+)}}}', post) .. '\n')
+	page:write(TEMPLATES.post:gsub('{{{([%w_-]+)}}}', post) .. '\n')
 
 	-- copy all relevant media files with the help of a script
 	assert(os.execute(string.format("helpers/copy-media.sh '%s' '%s'", package_path, out_path)))
