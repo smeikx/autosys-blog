@@ -47,7 +47,8 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 {
 	const
 		previews = document.getElementsByClassName('preview'),
-		titles = document.querySelectorAll('.preview .title');
+		titles = document.querySelectorAll('.preview .title'),
+		has_title_font_loaded = () => document.fonts.check('1rem Minipax');
 
 	for (let i = titles.length - 1; i >= 0; --i)
 	{
@@ -60,7 +61,7 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 	// XXX: It seems Safari can neither update ‘@keyframes’ nor ‘animation’ properties when they contain custom properties that are being changed via JS.
 	// The following horrible hack adds the affected CSS with a <style> tag and overwrites its content on resize.
 	const style = document.createElement('style');
-	const styling =
+	const styling = style.innerHTML =
 		`.title-container {
 			animation: .1s linear 0s infinite normal none running title;
 		}
@@ -68,11 +69,10 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 			from { transform: translateX(var(--start-position)); }
 			to { transform: translateX(var(--final-position)); }
 		}`;
-	style.innerHTML = styling;
 	document.head.appendChild(style);
 
 	let timer;
-	window.addEventListener('resize', (event) =>
+	const update_titles = () =>
 	{
 		// TODO: If window gets larger, add more clones.
 		for (let i = titles.length - 1; i >= 0; --i)
@@ -90,7 +90,25 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 		style.innerHTML = '';
 		if (timer) clearTimeout(timer);
 		timer = setTimeout(() => style.innerHTML = styling, 50);
-	});
-}
+	}
 
-// TODO: Use FontFaceSet.ready.then((font_face_set) => {…}) to recalculate --title-width.
+	window.addEventListener('resize', update_titles);
+
+	// Check for a few seconds if the font that defines the titles’ dimensions has beeen loaded.
+	if (!has_title_font_loaded())
+	{
+		const
+			interval = 50,
+			timeout = 20000;
+		let time = 0;
+		const id = setInterval(() =>
+		{
+			console.log(time);
+			if (has_title_font_loaded() || (time += interval) >= timeout)
+			{
+				update_titles();
+				clearInterval(id);
+			}
+		}, interval);
+	}
+}
