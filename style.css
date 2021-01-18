@@ -124,7 +124,7 @@ footer
 
 #about
 {
-	font-size: 1.3rem;
+	font-size: 1rem;
 	margin-top: 3rem;
 	padding: 0  calc(var(--edge-gap) - 1em) 0 var(--edge-gap);
 	columns: 3 12em;
