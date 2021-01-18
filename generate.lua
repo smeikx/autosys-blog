@@ -24,8 +24,10 @@ do
 	TEMPLATES[template] = TEMPLATES[template]:gsub('{{{([%w_-]+)}}}', TEMPLATES)
 end
 
-
+local count = 0
 local function parse_post (package_path)
+	count = count + 1
+	print(string.format('%i parsing ‘%s’ …', count, package_path))
 	local post <const> =
 	{
 		title = '',
