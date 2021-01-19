@@ -25,6 +25,7 @@ do
 end
 
 local count = 0
+local urls = {}
 local function parse_post (package_path)
 	count = count + 1
 	print(string.format('%i parsing ‘%s’ …', count, package_path))
@@ -72,8 +73,8 @@ local function parse_post (package_path)
 	end
 
 	-- set URL
-	-- XXX: might lead to collisions
-	post.url = post.datetime
+	urls[post.datetime] = urls[post.datetime] and urls[post.datetime] + 1 or 1
+	post.url = post.datetime..'_'..urls[post.datetime]..'/'
 
 	-- generate meta HTML
 	post.meta = TEMPLATES.meta:gsub('{{{([%w_-]+)}}}', post)
