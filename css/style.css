@@ -216,13 +216,6 @@ footer
 	display: flex;
 }
 
-.preview:nth-child(odd) .date:after,
-.preview:nth-child(even) .date:before
-{
-	content: '~';
-	margin: auto .2em;
-}
-
 .meta .author
 {
 	white-space: nowrap;
@@ -284,6 +277,12 @@ footer
 		'title thumbnail'
 		'info thumbnail';
 		grid-template-columns: 1fr var(--thumbnail-width);
+	}
+	.preview:nth-child(odd) .date:after,
+	.preview:nth-child(even) .date:before
+	{
+		content: '~';
+		margin: auto .2em;
 	}
 
 	.thumbnail
@@ -414,8 +413,12 @@ footer
 		order: 2;
 		margin: 0 var(--edge-gap);
 	}
+	.preview .date:after
+	{
+		content: '~';
+		margin: auto .2em;
+	}
 }
-
 
 @media screen and (max-width: 500px)
 {
