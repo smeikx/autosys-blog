@@ -1,0 +1,63 @@
+#home-link
+{
+	display: block;
+	text-align: right;
+	margin: .8em 1em 0 0;
+}
+#home-link:before
+{
+	content: '← ';
+}
+
+main
+{
+	max-width: 60rem;
+	margin: 0 auto;
+	padding: 0 .7rem;
+}
+
+h1
+{
+	font: 2rem/1 'Minipax', serif;
+	margin-bottom: 1.1rem;
+}
+
+main p
+{
+	font: 1rem 'Muli', sans-serif;
+	margin-bottom: 1em;
+}
+
+section
+{
+	margin: 2rem 0;
+}
+
+#info
+{
+	display: grid;
+	justify-content: center;
+	flex-wrap: wrap;
+	
+	grid-column-gap: 1.2em;
+	grid-template-columns: auto auto;
+}
+
+#team
+{
+	display: none;
+}
+
+@media screen and (max-width: 700px)
+{
+
+	#info
+	{
+		grid-template-columns: auto;
+	}
+
+	.lang-container + .lang-container
+	{
+		margin-top: 2rem;
+	}
+}

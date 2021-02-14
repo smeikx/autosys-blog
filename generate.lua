@@ -15,16 +15,21 @@ assert(os.execute('mkdir '..OUT_PATH))
 
 
 local TEMPLATES <const> = {}
-for _,template in ipairs{'home', 'post', 'preview', 'footer', 'meta', 'thumbnail', 'site-title'}
+for _,template in ipairs{'home', 'post', 'preview', 'footer', 'meta', 'thumbnail', 'site-title', 'about'}
 do
 	local file <close> = assert(io.open('templates/'..template..'.html'))
 	TEMPLATES[template] = file:read('a')
 end
 
 
-for _,template in ipairs{'home', 'post'}
+for _,template in ipairs{'home', 'post', 'about'}
 do
 	TEMPLATES[template] = TEMPLATES[template]:gsub('{{{([%w_-]+)}}}', TEMPLATES)
+end
+
+do
+	local about <close> = assert(io.open(OUT_PATH..'/about.html', 'w'))
+	about:write(TEMPLATES.about .. '\n')
 end
 
 local count = 0
