@@ -6,6 +6,9 @@
 -- This assumes thes ‘Discount’ markdown implementation:
 -- https://www.pell.portland.or.us/~orc/Code/discount/
 
+-- if this is true, CSS and JS is hardlinked instead of copied
+local LINK <const> = true
+if LINK then print('Careful! CSS and JS is hard linked!') end
 
 local OUT_PATH <const> = 'output'
 assert(os.execute('mkdir '..OUT_PATH))
@@ -129,7 +132,7 @@ end
 
 
 -- copy all shared files (CSS, JS) to destination
-assert(os.execute(string.format("cp -r css js fonts '%s/'", OUT_PATH)))
+assert(os.execute(string.format("cp -r %s css js fonts '%s/'", (LINK and '-l' or ''), OUT_PATH)))
 
 
 -- write the home page
