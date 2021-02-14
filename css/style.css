@@ -121,6 +121,38 @@ footer
 	padding: 2em;
 }
 
+footer p
+{
+	line-height: 1.8;
+}
+
+footer a
+{
+	color: var(--foreground-color);
+}
+
+footer a:hover, footer .about-link
+{
+	color: var(--accent-color);
+}
+
+.about-link
+{
+	animation: 1s ease-out 0s infinite alternate both running blink;
+}
+header .about-link:after
+{
+	display: inline-block;
+	content: '←';
+	text-decoration: none;
+	margin-left: .2em;
+}
+
+@keyframes blink
+{
+	from { color: var(--foreground-color); }
+	to { color: var(--accent-color); }
+}
 
 #about
 {
