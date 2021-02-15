@@ -5,7 +5,7 @@ posts_dir='posts'
 test -d output && rm -r output
 
 # Get all post paths in alphabetical (chronological) order …
-post_list="$(find $posts_dir -maxdepth 1 -not -ipath posts | sort -r)"
+post_list="$(find $posts_dir -maxdepth 1 -name '*.blog' -not -ipath posts | sort -r)"
 
 printf 'Post paths:\n%s\n' "$post_list"
 

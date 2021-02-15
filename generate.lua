@@ -76,13 +76,19 @@ local function parse_post (package_path)
 
 		do
 			local thumbnail = content:match('thumbnail:%s*([^\n]+)')
-			post.thumbnail = thumbnail and TEMPLATES.thumbnail:gsub('{{{thumbnailurl}}}', thumbnail:match('^(.*%S)%s*')) or ''
+			--post.thumbnail = thumbnail and TEMPLATES.thumbnail:gsub('{{{thumbnailurl}}}', thumbnail:match('^(.*%S)%s*')) or ''
+			post.thumbnail = thumbnail and thumbnail:match('^(.*%S)%s*') or ''
 		end
 	end
 
 	-- set URL
+	-- to avoid conflicting names for posts on the same date, an increasing number is appended
 	urls[post.datetime] = urls[post.datetime] and urls[post.datetime] + 1 or 1
 	post.url = post.datetime..'_'..urls[post.datetime]..'/'
+
+	if post.thumbnail ~= '' then
+		post.thumbnail = TEMPLATES.thumbnail:gsub('{{{thumbnailurl}}}', post.url .. post.thumbnail)
+	end
 
 	-- generate meta HTML
 	post.meta = TEMPLATES.meta:gsub('{{{([%w_-]+)}}}', post)
@@ -99,7 +105,7 @@ local function parse_post (package_path)
 		local _, teaser_start = content:find('<p>')
 		local teaser_end, _ = content:find('</p>')
 		local teaser = content:sub(teaser_start + 1, teaser_end - 1)
-		post.teaser = teaser:rep(math.ceil(200 / teaser:len()), ' '):sub(0, 200)
+		post.teaser = teaser:rep(math.ceil(200 / teaser:len()), ' ')
 	end
 
 	-- inject meta HTML into content after title
