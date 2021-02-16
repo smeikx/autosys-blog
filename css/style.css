@@ -121,9 +121,13 @@ footer
 	padding: 2em;
 }
 
-footer p
+/* This forces a line break between the two sentences instead of in the middle of the second one. */
+.break-controller
 {
-	line-height: 1.8;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: .7em;
 }
 
 footer a
