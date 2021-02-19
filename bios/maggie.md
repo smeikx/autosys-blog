@@ -1,4 +1,4 @@
-## Margarethe Maierhofer-Lischka
+### Margarethe Maierhofer-Lischka
 
 Margarethe is a musician, performer, sound artist and researcher. She studied double bass, contemporary music and musicology in Dresden, Rostock and Graz, and holds a PhD in Music Aesthetics from KUG Graz. She is founding member and board member of Ensemble Schallfeld, with which she is also touring worldwide.
 
