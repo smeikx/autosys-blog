@@ -4,8 +4,4 @@ Composer, multimedia artist, video editor, teacher, graduated from Kyiv National
 
 Since 2018 lives in Graz and studies Computer music in Graz University of Arts (with Prof. G. Eckel) and works as SMA in IEM (KUG) in the project “Inter\_agency”.
 
-She took part in different international composers’ masterclasses on instrumental and electronic music, festivals, workshops. In 2016 she was the resident of the Studio of Electronic Music in the Musical Academy in Krakow (Poland).
-
-Her music is performed in Ukraine, Poland, Germany, Austria, Sweden, Russia, Ireland, Portugal, Italy. Her compositions include instrumental, chamber, symphonic, electronic music, multidisciplinary and interactive projects.
-
 The main vector of her creative work is interdisciplinarity towards connecting the different art-forms into undisassemblable multimedia, where none of the arts is illustrative. Co-founder of duo rotkäppchen.
