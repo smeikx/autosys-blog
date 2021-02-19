@@ -143,7 +143,7 @@ end
 
 
 -- copy all shared files (CSS, JS) to destination
-assert(os.execute(string.format("cp -r %s css js fonts '%s/'", (LINK and '-l' or ''), OUT_PATH)))
+assert(os.execute(string.format("cp -r %s bios css js fonts '%s/'", (LINK and '-l' or ''), OUT_PATH)))
 
 
 -- write the home page
