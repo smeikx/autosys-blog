@@ -165,6 +165,7 @@ header .about-link:after
 	padding: 0  calc(var(--edge-gap) - 1em) 0 var(--edge-gap);
 	columns: 3 12em;
 	column-gap: 1em;
+	-webkit-hyphens: auto;
 	hyphens: auto;
 }
 

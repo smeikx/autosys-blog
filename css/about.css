@@ -43,6 +43,11 @@ section
 	grid-template-columns: auto auto;
 }
 
+#info p
+{
+	-webkit-hyphens: auto;
+	hyphens: auto;
+}
 
 #team
 {
