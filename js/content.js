@@ -92,7 +92,13 @@ const prepare_scrolling_title = (title, display_width, scroll_speed) =>
 		timer = setTimeout(() => style.innerHTML = styling, 50);
 	}
 
-	window.addEventListener('resize', update_titles);
+	let previous_window_width = window.innerWidth;
+	window.addEventListener('resize', () =>
+	{
+		if (previous_window_width == window.innerWidth) return;
+		update_titles();
+		previous_window_width = window.innerWidth;
+	});
 
 	// Check for a few seconds if the font that defines the titles’ dimensions has beeen loaded.
 	if (!has_title_font_loaded())
