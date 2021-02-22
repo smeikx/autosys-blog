@@ -58,10 +58,10 @@ local function parse_post (package_path)
 		local content <const> = meta_file:read('a')
 
 		post.datetime = assert(
-			content:match('date:%s*(%d%d%d%d%-[01][1-9]%-[0-3]%d)%s*'),
+			content:match('date:%s*(%d%d%d%d%-[01]%d%-[0-3]%d)%s*'),
 			string.format('Incorrectly formatted date: %s\n', content))
 		do
-			local y,m,d = post.datetime:match('(%d%d%d%d)%-([01][1-9])%-([0-3]%d)')
+			local y,m,d = post.datetime:match('(%d%d%d%d)%-([01]%d)%-([0-3]%d)')
 			post.date = string.format('%s.%s.%s', d, m, y)
 		end
 		post.author = content:match('author:%s*([^\n]+)'):match('^(.*%S)%s*')
