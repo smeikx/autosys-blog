@@ -1,6 +1,6 @@
 ### Alexander Kremser
 
-I am an interaction designer currently working on improving educational technology; I’m addressing you directly because I am the one editing this webpage.
+I am an interaction designer currently working on improving educational technology. As I am the one editing this webpage I granted myself the privilege of addressing you directly.
 
 One of my major goals is creating tools that enable and aid human expression, in order to shift each others perspective, gaining insight.
 
