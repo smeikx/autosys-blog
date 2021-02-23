@@ -9,6 +9,9 @@
 
 html
 {
+	/* to prevent inflated text in mobile landscape mode */
+	-webkit-text-size-adjust: 100%;
+	text-size-adjust: 100%;
 	--light-color: #eee;
 	--dark-color: #111;
 	--accent-color: hsl(329, 96%, 58%);
