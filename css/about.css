@@ -78,6 +78,8 @@ section
 
 	border-radius: 3px;
 	overflow: hidden;
+
+	background-color: var(--accent-color);
 }
 
 .portrait img
@@ -86,6 +88,7 @@ section
 	object-fit: cover;
 	width: 100%;
 	height: 100%;
+	mix-blend-mode: luminosity;
 }
 
 .name
